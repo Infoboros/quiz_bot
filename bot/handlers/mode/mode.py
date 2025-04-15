@@ -5,7 +5,7 @@ from telegram.ext import CallbackQueryHandler, CommandHandler, ContextTypes, Con
 from bot.handlers.cancel import cancel
 from bot.handlers.mode.role_selection import role_selection
 from bot.handlers.mode.start import start
-from bot.handlers.states import ROLE_SELECTION, STUDENT, TEACHER
+from bot.handlers.mode.states import ROLE_SELECTION, STUDENT, TEACHER
 from bot.handlers.student.router import create_router
 
 

@@ -7,6 +7,7 @@ from core.controllers.execute_test import ExecuteTestController
 
 
 async def result_test(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    print('result_test')
     query = update.callback_query
     await query.answer()
 

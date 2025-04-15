@@ -1,11 +1,9 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from bot.handlers.states import ROLE_SELECTION
-from bot.keyboard.select_role import get_select_role_keyboard
+from bot.handlers.mode.states import ENTRY_POINT, ROLE_SELECTION
+from bot.messages.mode import print_message_state_change
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Выберите вашу роль", reply_markup=get_select_role_keyboard())
-    return ROLE_SELECTION
-
+    return await print_message_state_change(ENTRY_POINT, ROLE_SELECTION, context, update.message.chat.id)

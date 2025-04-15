@@ -1,18 +1,21 @@
 from telegram import Update
-from telegram.ext import ContextTypes, ConversationHandler
+from telegram.ext import ContextTypes
 
-from bot.handlers.student.states import ENTRY_POINT, EXIT, SELECT_TEST
-from bot.keyboard.select_role import get_select_role_keyboard
-from bot.messages.student import print_message_state_change
+from bot.handlers.mode.states import ROLE_SELECTION
+from bot.handlers.student.states import ENTRY_POINT, SELECT_TEST
+from bot.messages.mode import print_message_state_change as print_message_state_change_mode
+from bot.messages.student import print_message_state_change as print_message_state_change_student
 
 
 async def action_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    print('action_selection')
     query = update.callback_query
     await query.answer()
     action = query.data
     context.user_data["action"] = action
     if action == SELECT_TEST:
-        return await print_message_state_change(ENTRY_POINT, SELECT_TEST, context, query.message.chat.id)
+        print('action_selection > SELECT_TEST')
+        return await print_message_state_change_student(ENTRY_POINT, SELECT_TEST, context, query.message.chat.id)
     else:
-        await query.edit_message_text("Выберите вашу роль", reply_markup=get_select_role_keyboard())
-        return EXIT
+        print('action_selection > ROLE_SELECTION')
+        return await print_message_state_change_mode(ENTRY_POINT, ROLE_SELECTION, context, query.message.chat.id)
