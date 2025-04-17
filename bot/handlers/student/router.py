@@ -7,7 +7,7 @@ from bot.handlers.student.actions import action_selection
 from bot.handlers.student.execute_test import execute_test
 from bot.handlers.student.result_test import result_test
 from bot.handlers.student.select_test import print_callback, select_test
-from bot.handlers.student.states import EXECUTE_TEST, EXIT, RESULT_TEST, SELECT_TEST
+from bot.handlers.student.states import EXECUTE_TEST, RESULT_TEST, SELECT_TEST
 
 def create_router():
     return ConversationHandler(
@@ -24,6 +24,5 @@ def create_router():
         map_to_parent={
             STUDENT: STUDENT,
             ROLE_SELECTION: ROLE_SELECTION,
-            EXIT: STUDENT
         }
     )

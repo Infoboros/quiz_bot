@@ -6,7 +6,8 @@ from bot.handlers.cancel import cancel
 from bot.handlers.mode.role_selection import role_selection
 from bot.handlers.mode.start import start
 from bot.handlers.mode.states import ROLE_SELECTION, STUDENT, TEACHER
-from bot.handlers.student.router import create_router
+from bot.handlers.student.router import create_router as create_router_student
+from bot.handlers.teacher.router import create_router as create_router_teacher
 
 
 async def teacher_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -23,8 +24,8 @@ def create_mode_handler():
         entry_points=[CommandHandler("start", start)],
         states={
             ROLE_SELECTION: [CallbackQueryHandler(role_selection)],
-            TEACHER: [MessageHandler(filters.TEXT & ~filters.COMMAND, teacher_callback)],
-            STUDENT: [create_router()],
+            TEACHER: [create_router_teacher()],
+            STUDENT: [create_router_student()],
         },
         fallbacks=[CommandHandler("cancel", cancel)],
     )

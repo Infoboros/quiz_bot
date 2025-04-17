@@ -2,20 +2,20 @@ from telegram import Update
 from telegram.ext import ContextTypes
 
 from bot.handlers.mode.states import ROLE_SELECTION
-from bot.handlers.student.states import ENTRY_POINT, SELECT_TEST
+from bot.handlers.teacher.states import ENTRY_POINT, LOAD_QUESTIONS
 from bot.messages.mode import print_message_state_change as print_message_state_change_mode
-from bot.messages.student import print_message_state_change as print_message_state_change_student
+from bot.messages.teacher import print_message_state_change as print_message_state_change_teacher
 
 
 async def action_selection(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    print('action_selection')
+    print('teacher action_selection')
     query = update.callback_query
     await query.answer()
     action = query.data
 
-    if action == SELECT_TEST:
-        print('action_selection > SELECT_TEST')
-        return await print_message_state_change_student(ENTRY_POINT, SELECT_TEST, context, query.message.chat.id)
+    if action == LOAD_QUESTIONS:
+        print('teacher action_selection > LOAD_QUESTIONS')
+        return await print_message_state_change_teacher(ENTRY_POINT, LOAD_QUESTIONS, context, query.message.chat.id)
     else:
-        print('action_selection > ROLE_SELECTION')
+        print('teacher action_selection > ROLE_SELECTION')
         return await print_message_state_change_mode(ENTRY_POINT, ROLE_SELECTION, context, query.message.chat.id)
