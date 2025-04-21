@@ -1,10 +1,12 @@
 import dataclasses
 
+from db.permissions import User
 from db.quiz import PassingAnswer, PassingTest, Question
 
 
 @dataclasses.dataclass
 class TestResult:
+    respondent: str
     test_name: str
     all_questions: int
     answers: int
@@ -23,6 +25,7 @@ class ResultTestController:
         test = self.passing_test.test
         passing_answers = PassingAnswer.filter(passing=self.passing_test)
         return TestResult(
+            respondent=self.passing_test.respondent.name,
             test_name=test.name,
             all_questions=test.questions.count(),
             answers=passing_answers.count(),

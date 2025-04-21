@@ -1,6 +1,7 @@
 from typing import Optional
 
 from peewee import DoesNotExist
+from telegram import User as TelegramUser
 
 from core.controllers.permission import PermissionController
 from core.controllers.result_test import ResultTestController, TestResult
@@ -27,9 +28,9 @@ class ExecuteTestController:
         return self.test.name
 
     @staticmethod
-    def create(telegram_id: int, test_id: int) -> 'ExecuteTestController':
+    def create(telegram_user: TelegramUser, test_id: int) -> 'ExecuteTestController':
         try:
-            user = PermissionController.get_user_by_telegram_id(telegram_id).user
+            user = PermissionController.get_user_by_telegram(telegram_user).user
             test = Test.get(id=test_id)
             return ExecuteTestController(user, test)
         except DoesNotExist:

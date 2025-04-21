@@ -15,8 +15,8 @@ async def start_create_test(update: Update, context: ContextTypes.DEFAULT_TYPE):
     try:
         print("create test create_test_controller")
         context.user_data["create_test_controller"] = CreateTest(
-            PermissionController.get_user_by_telegram_id(
-                update.effective_user.id
+            PermissionController.get_user_by_telegram(
+                update.effective_user
             ).user,
             update.message.text
         )

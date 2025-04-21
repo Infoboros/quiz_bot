@@ -25,7 +25,7 @@ async def load_questions(update: Update, context: ContextTypes.DEFAULT_TYPE):
         file = io.BytesIO()
         await document.download_to_memory(file)
         questions = ImportQuestionController(
-            PermissionController.get_user_by_telegram_id(update.effective_user.id).user,
+            PermissionController.get_user_by_telegram(update.effective_user).user,
             file
         ).import_questions()
         await update.message.reply_text(

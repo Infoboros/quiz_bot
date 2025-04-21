@@ -15,10 +15,9 @@ async def print_callback(context, chat_id):
 
 async def select_test(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print('select_test')
-    telegram_id = update.effective_user.id
     try:
         test_id = int(update.message.text)
-        test_controller = ExecuteTestController.create(telegram_id, test_id)
+        test_controller = ExecuteTestController.create(update.effective_user, test_id)
         context.user_data["test_controller"] = test_controller
 
         await update.message.reply_text(test_controller.test_name, reply_markup=get_execution_test_keyboard())
