@@ -19,13 +19,15 @@ async def execute_test(update: Update, context: ContextTypes.DEFAULT_TYPE):
     question = test_controller.get_question()
 
     if question:
-        answers = [
-            (answer.answer, answer.id)
-            for answer in test_controller.get_answers()
+        answer_with_code = [
+            (f'{chr(ord("A") + index)}', answer)
+            for index, answer in enumerate(test_controller.get_answers())
         ]
         await query.edit_message_text(
-            question.question,
-            reply_markup=get_answers_test_keyboard(answers)
+            f"{question.question}\n\n"
+            f"{'\n'.join([ f'{code}) {answer.answer}' for code, answer in answer_with_code])}",
+
+            reply_markup=get_answers_test_keyboard(answer_with_code)
         )
         return EXECUTE_TEST
 

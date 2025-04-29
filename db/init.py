@@ -16,6 +16,7 @@ class InitDB:
             User,
             Tag,
             Question,
+            Question.tags.get_through_model(),
             Answer,
 
             Test,

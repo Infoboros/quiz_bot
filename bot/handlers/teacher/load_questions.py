@@ -20,10 +20,11 @@ async def print_callback(context, chat_id):
 async def load_questions(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print("load_questions")
     extension = mimetypes.guess_extension(update.message.document.mime_type) if update.message.document else None
-    if extension == '.xlsx':
+    if extension == '.txt':
         document = await update.message.document.get_file()
         file = io.BytesIO()
         await document.download_to_memory(file)
+        file.seek(0)
         questions = ImportQuestionController(
             PermissionController.get_user_by_telegram(update.effective_user).user,
             file

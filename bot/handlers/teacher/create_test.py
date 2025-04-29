@@ -47,8 +47,10 @@ async def create_test(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if question and (action != END):
         print("create test next")
         await query.edit_message_text(
-            question.question,
-            reply_markup=get_create_test_keyboard()
+            f"<b>Теги</b>: {', '.join(map(str, question.tags))}\n"
+            f"<b>Вопрос</b>: {question.question}",
+            reply_markup=get_create_test_keyboard(),
+            parse_mode="HTML",
         )
         return CREATE_TEST
     else:

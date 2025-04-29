@@ -10,6 +10,9 @@ class Tag(Model):
     class Meta:
         database = db
 
+    def __str__(self):
+        return self.name
+
 
 class Question(Model):
     owner = ForeignKeyField(User, backref='personal_questions', null=True)
